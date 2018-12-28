@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Main</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<header> 
+		<nav class="menu"> 
+			<ul> 
+				<li><a href="#">Меню</a> 
+					<ul>
+					 	<li><a href="1.html">1 Task</a></li>
+					 	<li><a href="2.html">2 Task</a></li>
+					 	<li><a href="3.html">3 Task</a></li>
+					 	<li><a href="4.html">4 Task</a></li>
+					 </ul> 
+				</li> 
+			</ul> 
+		</nav> 
+	</header> 
+	  <div>
+    <form id="function">
+      <p>
+        <b>Введите размер матрицы</b><br>
+        <input type="number" size="40">
+        <input type="submit" value="Создать">
+      </p>
+    </form>
+  </div>
+
+  <div id="output">
+     
+  </div>
+
+    <script>
+    function getRandomInt(min, max){ 
+        return Math.floor(Math.random() * (max - 1  - min + 1)) + min;
+    }
+
+    function getArray(n) {
+      var arr = [];
+      for (var i = 0; i < n*n; i++){
+        arr[i] = getRandomInt(0, n)
+      }
+      console.log (arr);
+
+      return getResultArray(arr);
+    }
+
+    function getResultArray(arr) {
+      arr.sort(function(a, b) {
+        return a - b;
+      });
+      var matrix = [];
+      var k = n*n - 1;
+      for (var i = n - 1; i > -1; i--){
+        matrix[i] = [];
+        if (i % 2 != 1){
+          for (var j = 0; j < n; j++){
+            matrix[i][j] = arr[k];
+            k--;
+          }
+        }
+        else {
+          for (var j = n - 1; j > -1; j--){
+            matrix[i][j] = arr[k];
+            k--;
+          }
+        }
+      }
+      return matrix;
+
+    }
+
+    document.getElementById('function').addEventListener('submit', function(e) {
+      n = parseFloat(e.target[0].value);
+      var matrix = getArray(n);
+      var table = document.createElement('table');
+      var body = document.getElementById('output');
+      table.style.width = '15%';
+      table.setAttribute('border', '1');
+      var tbody = document.createElement('tbody');
+      for (var i = n - 1; i > -1; i--) {
+        var tr = document.createElement('tr');
+        for (var j = n - 1; j > -1; j--) {
+          var td = document.createElement('td');
+          td.appendChild(document.createTextNode(matrix[i][j]));
+          tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+      }
+      table.appendChild(tbody);
+      table.setAttribute('border', '1');
+      table.setAttribute('class', 'table');
+      table.setAttribute('class', 'table-light');
+      body.appendChild(table);
+
+      e.preventDefault();
+    })
+
+    </script>  	
+</body>
+</html>
