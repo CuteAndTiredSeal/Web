@@ -7,7 +7,8 @@
 		var arr = [];
 		const
 			minSize = 10,
-			maxSize = 40
+			maxSize = 50
+
 		const TShape = function (posX,posY){
 			this.posX = posX
 			this.posY = posY
@@ -83,11 +84,11 @@
 		function drawBack(ctx,col1,col2,w,h){
 			// закрашиваем канвас градиентным фоном
 			ctx.save();
-			var g = ctx.createLinearGradient(20,20,w,h);
+			var g = ctx.createLinearGradient(0,0,0,h);
 			g.addColorStop(1, col1);
 			g.addColorStop(0, col2);
 			ctx.fillStyle = g;
-			ctx.fillRect(20,20,w,h);
+			ctx.fillRect(0,0,w,h);
 			ctx.restore();
 		}
 		// инициализация работы
@@ -96,7 +97,7 @@
 			if (canvas.getContext){
 				ctx = canvas.getContext('2d');
 				//рисуем фон
-				drawBack(ctx,'#f8f8ff','#f8f4ff',canvas.width,canvas.height);
+				drawBack(ctx,'#f8f8ff','black',canvas.width,canvas.height);
 				//создаем 10 шариков, заноси их в массив и выводим на canvas
 				figures = [];
 				for (var i = 1; i<=10;i++){
@@ -188,7 +189,7 @@
 			}
 		}	
 		function moveUp(){
-			drawBack(ctx,'#f8f8ff','#f8f4ff',canvas.width,canvas.height);
+			drawBack(ctx,'#f8f8ff', 'black',canvas.width,canvas.height);
 			peres()
 			for (var i = 0; i < figures.length;i){
 				figures[i].posX = figures[i].posX + (Math.random()*4-2);
@@ -197,7 +198,7 @@
 					figures.splice(i,1);
 				else{
 					increaseRad(figures[i]);
-					if ( figures[i].radius > 40){
+					if ( figures[i].radius > maxSize){
 						figures.splice(i, 1);
 					}
 					else {
@@ -209,7 +210,7 @@
 		}
 			
 		function moveDown(){
-			drawBack(ctx,'#f8f8ff','#f8f4ff',canvas.width,canvas.height);
+			drawBack(ctx,'#f8f8ff', 'black',canvas.width,canvas.height);
 			peres()
 			for (var i = 0; i < figures.length;i){
 				figures[i].posX = figures[i].posX - (Math.random()*4-2);
@@ -219,7 +220,7 @@
 					figures.splice(i,1);
 				else{
 					increaseRad(figures[i]);
-					if ( figures[i].radius > 40){
+					if ( figures[i].radius > maxSize){
 						figures.splice(i, 1);
 					}
 					else {
@@ -231,7 +232,7 @@
 		}
 		
 		function moveRight(){
-			drawBack(ctx,'#f8f8ff','#f8f4ff',canvas.width,canvas.height);
+			drawBack(ctx,'#f8f8ff', 'black',canvas.width,canvas.height);
 			peres()
 			for (var i = 0; i < figures.length;i){
 				figures[i].posX = figures[i].posX - (Math.random()*2-4);
@@ -241,7 +242,7 @@
 					figures.splice(i,1);
 				else{
 					increaseRad(figures[i]);
-					if ( figures[i].radius > 40){
+					if ( figures[i].radius > maxSize){
 						figures.splice(i, 1);
 					}
 					else {
@@ -253,7 +254,7 @@
 		}
 		
 		function moveLeft(){
-			drawBack(ctx,'#f8f8ff','#f8f4ff',canvas.width,canvas.height);
+			drawBack(ctx,'#f8f8ff','black',canvas.width,canvas.height);
 			peres()
 			for (var i = 0; i < figures.length;i){
 				figures[i].posX = figures[i].posX  + (Math.random()*2-4);
@@ -262,7 +263,7 @@
 					figures.splice(i,1);
 				else{
 					increaseRad(figures[i]);
-					if ( figures[i].radius > 40){
+					if ( figures[i].radius > maxSize){
 						figures.splice(i, 1);
 					}
 					else {
@@ -275,7 +276,7 @@
 		}
 		
 		function moveChaos(){
-			drawBack(ctx,'#f8f8ff','#f8f4ff',canvas.width,canvas.height);
+			drawBack(ctx,'#f8f8ff','black',canvas.width,canvas.height);
 			peres()
 			for (var i = 0; i < figures.length;i){
 				var way  = Math.floor(Math.random() * (5 - 1)) + 1;
@@ -300,7 +301,7 @@
 					figures[i].draw(ctx);
 				}
 				increaseRad(figures[i]);
-				if ( figures[i].radius > 40){
+				if ( figures[i].radius > maxSize){
 					figures.splice(i, 1);
 				}
 				if ((figures[i].posX > canvas.width)||(figures[i].posX < 0) ||(figures[i].posY < 0)) 
@@ -311,7 +312,7 @@
 		}
 		
 		function moveRandom(){
-			drawBack(ctx,'#f8f8ff','#f8f4ff',canvas.width,canvas.height);
+			drawBack(ctx,'#f8f8ff','black',canvas.width,canvas.height);
 			peres()
 			for (var i = 0; i < figures.length;i){
 				if (arr[i] == 1){
@@ -337,7 +338,7 @@
 				
 				increaseRad(figures[i]);
 				
-				if ( figures[i].radius > 40){
+				if ( figures[i].radius > maxSize){
 					figures.splice(i, 1);
 				}
 				
@@ -380,7 +381,8 @@
 		function increaseRad(a){
 			a.radius = a.radius + 0.3;
 		}
-			function SegmentSegment(x11, y11, x12, y12,  x21, y21, x22, y22)
+		
+		function SegmentSegment(x11, y11, x12, y12,  x21, y21, x22, y22)
 		{
 			let maxx1 = Math.max(x11, x12), maxy1 = Math.max(y11, y12)
 			let minx1 = Math.min(x11, x12), miny1 = Math.min(y11, y12)
@@ -412,7 +414,8 @@
 				return false // Второй отрезок пересекается за своими границами...
 			return true
 		}
-			function SegmentCircle(x1, y1, x2, y2,  xC, yC, R){   
+		
+		function SegmentCircle(x1, y1, x2, y2,  xC, yC, R){   
 			x1 -= xC
 			y1 -= yC
 			x2 -= xC
