@@ -3,7 +3,7 @@
 	<title>Canvas & Mootools</title>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mootools/1.6.0/mootools-core.js"></script>
 	<script type="text/javascript">
-		var canvas, ctx, balls,randomMovingbBalls, idTimer;
+		var canvas, ctx, balls, idTimer;
 		var arr = [];
 		const
 			minSize = 10,
@@ -12,7 +12,7 @@
 		const TShape = function (posX,posY){
 			this.posX = posX
 			this.posY = posY
-			this.radius = minSize + Math.random()*(maxSize-minSize)
+			this.radius = minSize + Math.random()*(minSize)
 			this.pointDraw = function() {
 				ctx.beginPath()
 				this.absPoints.length = 0
@@ -20,7 +20,6 @@
 				ctx.moveTo(this.absPoints[0].x, this.absPoints[0].y)
 				let lines = []
 				lines.push(this.absPoints[0])
-				this.lines.length = 0
 				for (var i = 1; i < this.points.length; i++){
 					this.absPoints.push({x:this.posX + this.points[i].x * this.radius, y:this.posY + this.points[i].y * this.radius})
 					lines.push(this.absPoints[i])
@@ -100,19 +99,19 @@
 				drawBack(ctx,'#f8f8ff','black',canvas.width,canvas.height);
 				//создаем 10 шариков, заноси их в массив и выводим на canvas
 				figures = [];
-				for (var i = 1; i<=10;i++){
+				for (var i = 1; i<=20;i++){
 					var item = new TBall(10+Math.random()*(canvas.width-30),
 					10+Math.random()*(canvas.height-30));
 					item.draw(ctx);
 					figures.push(item);
 				}
-				for (var i = 1; i<=10;i++){
+				for (var i = 1; i<=20;i++){
 					var item = new TSquare(10+Math.random()*(canvas.width-30),
 					10+Math.random()*(canvas.height-30));
 					item.draw(ctx);
 					figures.push(item);
 				}
-				for (var i = 1; i<=10;i++){
+				for (var i = 1; i<=20;i++){
 					var item = new TTriangle(10+Math.random()*(canvas.width-30),
 					10+Math.random()*(canvas.height-30));
 					item.draw(ctx);
@@ -379,7 +378,7 @@
 		}
 		
 		function increaseRad(a){
-			a.radius = a.radius + 0.3;
+			a.radius = a.radius + 0.1;
 		}
 		
 		function SegmentSegment(x11, y11, x12, y12,  x21, y21, x22, y22)
